@@ -3,7 +3,9 @@
 ![Build Status](https://github.com/stephane/libmodbus/actions/workflows/build.yml/badge.svg)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/8058/badge.svg)](https://scan.coverity.com/projects/libmodbus)
 
-## Overview
+> **注意**: 这是 libmodbus 的 CMake 构建版本，已配置支持 Windows 和 Linux 跨平台编译。
+
+## 概述
 
 libmodbus is a free software library to send/receive data with a device which
 respects the Modbus protocol. This library can use a serial port or an Ethernet
@@ -21,6 +23,46 @@ The library is written in C and designed to run on Linux, Mac OS X, FreeBSD, Emb
 QNX and Windows.
 
 You can use the library on MCUs with Embox RTOS.
+
+## CMake 构建 (推荐)
+
+本项目已配置 CMake 构建系统，支持跨平台编译。
+
+### Windows 快速开始
+
+```powershell
+# 配置 (x64 Release)
+cmake --preset x64-release
+
+# 编译
+cmake --build out/build/x64-release --config Release
+
+# 生成的库位于
+# out/build/x64-release/libmodbus/Release/modbus.dll
+```
+
+### Linux 快速开始
+
+```bash
+# 配置
+cmake --preset linux-release
+
+# 编译
+cmake --build out/build/linux-release
+
+# 生成的库位于
+# out/build/linux-release/libmodbus/libmodbus.so
+```
+
+### 详细文档
+
+- **[BUILD.md](BUILD.md)** - 完整的构建说明和选项
+- **[EXAMPLES.md](EXAMPLES.md)** - API 使用示例和代码
+- **[CMAKE_SUMMARY.md](CMAKE_SUMMARY.md)** - CMake 配置总结
+
+## 传统构建方法 (Autotools)
+
+如果你更喜欢使用 autotools，可以继续使用传统方法：
 
 ## Installation
 

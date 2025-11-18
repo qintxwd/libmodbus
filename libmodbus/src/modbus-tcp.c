@@ -14,6 +14,12 @@
 # endif
 #endif
 
+#ifndef _WIN32
+#define _GNU_SOURCE
+#endif
+
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -263,11 +269,13 @@ static int _modbus_tcp_set_ipv4_options(int s)
      * necessary to workaround that problem.
      **/
     /* Set the IP low delay option */
+#ifdef IPTOS_LOWDELAY
     option = IPTOS_LOWDELAY;
     rc = setsockopt(s, IPPROTO_IP, IP_TOS, &option, sizeof(int));
     if (rc == -1) {
         return -1;
     }
+#endif
 #endif
 
     return 0;

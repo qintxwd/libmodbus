@@ -232,13 +232,15 @@ void ModbusTCPServer::listen(int nb_connection) {
 
 std::unique_ptr<Modbus> ModbusTCPServer::accept() {
     ServerImpl* server = static_cast<ServerImpl*>(impl_.get());
-    int client_socket = -1;
-    if (modbus_tcp_accept(server->ctx, &client_socket) == -1) {
+    if (server->socket == -1) {
+        throw Exception("服务器未监听，无法接受连接");
+    }
+    if (modbus_tcp_accept(server->ctx, &server->socket) == -1) {
         throw Exception("接受连接失败: " + std::string(modbus_strerror(errno)));
     }
+    int client_socket = modbus_get_socket(server->ctx);
     
-    // 创建一个新的上下文用于客户端通信
-    modbus_t* client_ctx = modbus_new_tcp("0.0.0.0", 502);
+    modbus_t* client_ctx = modbus_new_tcp("0.0.0.0", DEFAULT_TCP_PORT);
     if (!client_ctx) {
         throw Exception("创建客户端上下文失败");
     }

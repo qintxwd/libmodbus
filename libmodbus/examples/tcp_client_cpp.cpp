@@ -22,6 +22,8 @@ int main() {
         
         // 创建 TCP 客户端
         modbus::ModbusTCP client("127.0.0.1", 1502);
+        client.set_slave(1);
+        client.set_debug(true);
         
         // 连接到服务器
         std::cout << "\nConnecting to 127.0.0.1:1502..." << std::endl;

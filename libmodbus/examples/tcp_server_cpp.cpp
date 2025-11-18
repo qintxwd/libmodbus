@@ -27,7 +27,7 @@ int main() {
         modbus::ModbusTCPServer server("127.0.0.1", 1502);
         
         // 创建数据映射
-        modbus::ModbusTCPServer::Mapping mapping;
+        modbus::ModbusTCPServer::Mapping mapping(20, 20, 50, 50);
         
         // 初始化测试数据
         std::cout << "\nInitializing server data..." << std::endl;
